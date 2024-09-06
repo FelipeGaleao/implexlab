@@ -1,57 +1,67 @@
 from random import randint
 
+def random_vector(inc: int, fim: int, stp: int):
+    """ Gera um vetor de inteiros aleatórios.
 
-class GenerateVectors():
-    """ Classe utilizada para gerar vetores de inteiros aleatórios.
+    Args:
+        inc (int): Valor inicial do intervalo.
+        fim (int): Valor final do intervalo.
+        stp (int): Tamanho do vetor.
+
+    Returns:
+        list: Vetor de inteiros aleatórios.
     """
+    return [randint(inc, fim) for _ in range(stp)]
 
-    def __init__(self):
-        pass
+def reverse_vector(increment: int, end: int, step: int):
+    """ Gera um vetor de inteiros ordenados de forma decrescente.
 
-    def random(self, inc: int, fim: int, stp: int):
-        """ Método que gera um vetor de inteiros aleatórios.
+    Args:
+        increment (int): Valor inicial do intervalo.
+        end (int): Valor final do intervalo.
+        step (int): Tamanho do vetor.
 
-        Args:
-            inc (int): Valor inicial do intervalo.
-            fim (int): Valor final do intervalo.
-            stp (int): Tamanho do vetor.
+    Returns:
+        list: Vetor de inteiros ordenados de forma decrescente.
+    """
+    return [i for i in range(end, increment, -1)]
 
-        Returns:
-            list: Vetor de inteiros aleatórios.
-        """
-        return [randint(inc, fim) for _ in range(stp)]
+def ordered_vector(increment: int, end: int, step: int):
+    """ Gera um vetor de inteiros ordenados de forma crescente.
 
-    def reverse(self, increment: int, end: int, step: int):
-        """ Método que gera um vetor de inteiros ordenados de forma decrescente. 
+    Args:
+        increment (int): Valor inicial do intervalo.
+        end (int): Valor final do intervalo.
+        step (int): Tamanho do vetor.
+    """
+    return [i for i in range(increment, end, step)]
 
-        Args:
-            increment (int): Valor inicial do intervalo.
-            end (int): Valor final do intervalo.
-            step (int): Tamanho do vetor.
+import random
 
-        Returns:
-            list: Vetor de inteiros ordenados de forma decrescente.
-        """
-        return [i for i in range(end, increment, -1)]
+def almost_ordered_vector(increment: int, end: int, step: int):
+    """ Gera um vetor de inteiros quase ordenados.
 
-    def ordered(self, increment: int, end: int, step: int):
-        """ Método que gera um vetor de inteiros ordenados de forma crescente.
+    Args:
+        increment (int): Valor inicial do intervalo.
+        end (int): Valor final do intervalo.
+        step (int): Tamanho do vetor.
+    """
+    #vetor ordenado crescente
+    vector = [i for i in range(increment, end, step)]
+    
+    #Calcular o número de elementos a serem embaralhados (10% do tamanho do vetor)
+    num_elements_to_shuffle = max(1, len(vector) // 10)  # Garantir pelo menos 1 elemento para embaralhar
 
-        Args:
-            increment (int): Valor inicial do intervalo.
-            end (int): Valor final do intervalo.
-            step (int): Tamanho do vetor.
-        """
-        return [i for i in range(increment, end, step)]
+    #Embaralhar 10% dos elementos
+    indices_to_shuffle = random.sample(range(len(vector)), num_elements_to_shuffle)
+    elements_to_shuffle = [vector[i] for i in indices_to_shuffle]
+    random.shuffle(elements_to_shuffle)
+    
+    #Substituir os elementos no vetor original pelos elementos embaralhados
+    for index, original_index in enumerate(indices_to_shuffle):
+        vector[original_index] = elements_to_shuffle[index]
+    
+    return vector
 
-    def almost_ordered(self, increment: int, end: int, step: int):
-        """ Método que gera um vetor de inteiros quase ordenados.
+# Exemplo de uso
 
-        Args:
-            increment (int): Valor inicial do intervalo.
-            end (int): Valor final do intervalo.
-            step (int): Tamanho do vetor.
-        """
-        vector = [i for i in range(increment, end, step)]
-        vector[-1], vector[-2] = vector[-2], vector[-1]
-        return vector
