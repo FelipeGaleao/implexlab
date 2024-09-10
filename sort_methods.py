@@ -6,6 +6,7 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     return arr
 
+
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         chave = arr[i]
@@ -15,6 +16,7 @@ def insertion_sort(arr):
             j -= 1
         arr[j + 1] = chave
     return arr
+
 
 def merge_sort(arr):
     if len(arr) > 1:
@@ -47,6 +49,7 @@ def merge_sort(arr):
             k += 1
     return arr
 
+
 def heapify(arr, n, i):
     maior = i
     l = 2 * i + 1
@@ -62,6 +65,7 @@ def heapify(arr, n, i):
         arr[i], arr[maior] = arr[maior], arr[i]
         heapify(arr, n, maior)
 
+
 def heap_sort(arr):
     n = len(arr)
 
@@ -74,71 +78,38 @@ def heap_sort(arr):
     return arr
 
 def partition(arr, low, high):
-    i = (low - 1)
-    pivo = arr[high]
+    i = low - 1
+    pivot = arr[high]
 
     for j in range(low, high):
-        if arr[j] <= pivo:
-            i = i + 1
+        if arr[j] <= pivot:
+            i += 1
             arr[i], arr[j] = arr[j], arr[i]
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return (i + 1)
+    return i + 1
+
 
 def quick_sort(arr, low, high):
-    if len(arr) == 1:
-        return arr
-    if low < high:
+    while low < high:
         pi = partition(arr, low, high)
-        quick_sort(arr, low, pi - 1)
-        quick_sort(arr, pi + 1, high)
+        if pi - low < high - pi:
+            quick_sort(arr, low, pi - 1)
+            low = pi + 1
+        else:
+            quick_sort(arr, pi + 1, high)
+            high = pi - 1
     return arr
+
 
 def counting_sort(arr, max_val):
     m = max_val + 1
-    contagem = [0] * m                
-    
+    contagem = [0] * m
+
     for a in arr:
-        contagem[a] += 1             
+        contagem[a] += 1
     i = 0
-    for a in range(m):            
-        for c in range(contagem[a]): 
+    for a in range(m):
+        for c in range(contagem[a]):
             arr[i] = a
             i += 1
     return arr
-
-
-# vetor1 = [12, 5, 7, 3, 8, 10, 2]
-# vetor2 = [15, 3, 2, 7, 9, 8, 4]
-# vetor3 = [35, 12, 48, 23, 9, 56]
-# vetor4 = [105, 203, 501, 304, 150, 401]
-# vetor5 = [12, 31, 27, 100, 42, 89]
-
-# #insertion sort 
-# print(insertion_sort(vetor1))
-# print(insertion_sort(vetor2))
-# print(insertion_sort(vetor3))
-# print(insertion_sort(vetor4))
-# print(insertion_sort(vetor5))
-
-# #merge sort
-# print(merge_sort(vetor1))
-# print(merge_sort(vetor2))
-# print(merge_sort(vetor3))
-# print(merge_sort(vetor4))
-# print(merge_sort(vetor5))
-
-# #Heap sort
-# print(heap_sort(vetor1))
-# print(heap_sort(vetor2))
-# print(heap_sort(vetor3))
-# print(heap_sort(vetor4))
-# print(heap_sort(vetor5))
-
-# #quick sort
-# print(quick_sort(vetor1, 0, len(vetor1) - 1))
-# print(quick_sort(vetor2, 0, len(vetor2) - 1))
-# print(quick_sort(vetor3, 0, len(vetor3) - 1))
-# print(quick_sort(vetor4, 0, len(vetor4) - 1))
-# print(quick_sort(vetor5, 0, len(vetor5) - 1))
-
-# #counting sort
